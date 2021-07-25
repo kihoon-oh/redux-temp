@@ -59,3 +59,37 @@ export function getUsersFail(error){
     error
   }
 }
+
+export function getUsersThunk(){
+  return async (dispatch)=>{
+    try{
+      dispatch(getUsersStart());
+      const res= await fetch("https://api.github.com/users");
+      if(!res.ok){
+        throw new Error('서버에러');
+      }
+      dispatch(getUsersSuccess(await res.json()));
+    }catch(e){
+      dispatch(getUsersFail(e));
+    }
+  }
+}
+
+const GET_USERS = 'GET_USERS';
+
+export const GET_USERS_PENDING='GET_USERS_PENDING';
+export const GET_USERS_FULFILLED='GET_USERS_FULFILLED';
+export const GET_USERS_REJECTED='GET_USERS_REJECTED';
+
+export function getUsersPromise(){
+  return {
+    type: GET_USERS,
+    payload: async ()=>{
+      const res= await fetch("https://api.github.com/users");
+      if(!res.ok){
+        throw new Error('서버에러');
+      }
+      return await res.json();
+    }
+  }
+}
