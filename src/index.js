@@ -4,13 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './redux/sotre';
-import addContext from './context/todoContext';
+import {Provider} from 'react-redux';
 
 ReactDOM.render(  
     <React.StrictMode>
-      <addContext.Provider value={store}>
+      <Provider store={store}>
         <App />
-      </addContext.Provider>
+      </Provider>
     </React.StrictMode>,
   document.getElementById('root')
 );

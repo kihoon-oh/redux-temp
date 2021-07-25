@@ -6,7 +6,7 @@ export default function todoReducer(prestate=initialState,action){
   if(action.type === TODO_ADD){
     return [
       ...prestate,
-      {  todo : action.todo , done :false }
+      {  text : action.todo , done :false }
     ]
   }
 

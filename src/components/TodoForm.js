@@ -1,13 +1,10 @@
 import { useCallback, useRef } from "react";
-import useReduxDispatch from "../hooks/useReduxDispatch";
-import { addTodo } from "../redux/actions";
 
-export default  function TodoForm(){
+export default function TodoForm({add}){
   const inputRef = useRef();
-  const dispatch = useReduxDispatch();
   const click = useCallback( ()=>{
-    dispatch(addTodo(inputRef.current.value));
-  });
+    add(inputRef.current.value);
+  },[]);
   return (
     <div>
       <input ref={inputRef}></input>
@@ -15,3 +12,4 @@ export default  function TodoForm(){
     </div>
   );
 }
+

@@ -4,7 +4,7 @@ import todoReducer from "./todo";
 
 const reducer = combineReducers(
   {
-    todo : todoReducer,
+    todos : todoReducer,
     filter : filterReducer
   }
 )
