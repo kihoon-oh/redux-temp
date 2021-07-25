@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import store from './redux/sotre';
+import addContext from './context/todoContext';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+ReactDOM.render(  
+    <React.StrictMode>
+      <addContext.Provider value={store}>
+        <App />
+      </addContext.Provider>
+    </React.StrictMode>,
   document.getElementById('root')
 );
 
