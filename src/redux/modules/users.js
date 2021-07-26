@@ -140,7 +140,19 @@ export function getUsersPromise(){
 // redux-saga
 
 const GET_USERS_SATA_START='GET_USERS_SATA_START';
+//액션 생성자
+export function getUserSagaStart(){
+  return{
+    type: GET_USERS_SATA_START,
+  }
+}
 
+ // 사가함수 액션 등록
+export function* usersSata(){
+  yield takeEvery(GET_USERS_SATA_START,getUsersSaga);
+}
+
+//사가함수
 function* getUsersSaga(action){
   try{    
     yield put(getUsersStart())  // === dispatch(getUsersStart());
@@ -157,12 +169,3 @@ function* getUsersSaga(action){
   }
 }
 
-export function getUserSagaStart(){
-  return{
-    type: GET_USERS_SATA_START,
-  }
-}
-
-export function* usersSata(){
-  yield takeEvery(GET_USERS_SATA_START,getUsersSaga);
-}
