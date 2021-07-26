@@ -3,23 +3,16 @@ import reducer from "./modules/reducer";
 import {composeWithDevTools} from "redux-devtools-extension"
 import thunk from 'redux-thunk'
 import promise from 'redux-promise-middleware'
+import { routerMiddleware } from "connected-react-router";
+import history from "../history";
 
-// function middleware1(store){
-//   console.log('middleware1',0);
-//   return (next)=>{
-//     console.log('middleware1',1);
-//     return action =>{
-//       console.log('middleware1',2);
-//       const returnvalue = next(action);
-//       console.log('middleware1',3);
-//       return returnvalue;
-//     }
-//   }
-// }
-
- const store = createStore(
+const store = createStore(
    reducer,
-   composeWithDevTools(applyMiddleware(thunk,promise))
+   composeWithDevTools(applyMiddleware(
+      thunk.withExtraArgument({history}),
+      promise,
+      routerMiddleware(history)
+    ))
  );
 
  export default store;

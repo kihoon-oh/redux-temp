@@ -92,15 +92,26 @@ export default function users(state =initialState, action){
 
 // 덩크
 
+function sleep(ms){
+  return new Promise((resolve)=>{
+    setTimeout(() => {
+      resolve();
+    }, ms);
+  })
+}
+
 export function getUsersThunk(){
-  return async (dispatch)=>{
+  return async (dispatch,getState,{history})=>{
     try{
+      console.log(history);
       dispatch(getUsersStart());
+      await sleep(2000);
       const res= await fetch("https://api.github.com/users");
       if(!res.ok){
         throw new Error('서버에러');
-      }
+      }      
       dispatch(getUsersSuccess(await res.json()));
+      history.push('/');
     }catch(e){
       dispatch(getUsersFail(e));
     }
