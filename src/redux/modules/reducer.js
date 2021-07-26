@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import filter from "./filter";
-import todos from "./todo";
+import todos from "./todos";
 import users from "./users";
 
 const reducer = combineReducers(

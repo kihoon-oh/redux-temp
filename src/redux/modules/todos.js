@@ -1,7 +1,26 @@
-import {TODO_ADD,TODO_DONE} from '../actions';
+// 액션타입
+const TODO_ADD = 'redux-start/todos/TODO_ADD';
+const TODO_DONE = 'redux-start/todos/TODO_DONE';
 
+// 액션 생성자
+export function addTodo(todo){
+  return{
+    type : TODO_ADD,
+    todo
+  }
+}
+
+export function todoDone(idx){
+  return{
+    type : TODO_ADD,
+    idx
+  }
+}
+
+// 초기값
 const initialState = [];
 
+//리듀서
 export default function todoReducer(prestate=initialState,action){
   if(action.type === TODO_ADD){
     return [
