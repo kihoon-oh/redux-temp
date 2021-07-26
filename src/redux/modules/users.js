@@ -1,3 +1,6 @@
+import { push } from 'connected-react-router';
+import {call, delay, put, takeEvery} from 'redux-saga/effects'
+
 // 액션 타입
 
 // GITHUB API 호출 시작
@@ -131,4 +134,35 @@ export function getUsersPromise(){
       return await res.json();
     }
   }
+}
+
+
+// redux-saga
+
+const GET_USERS_SATA_START='GET_USERS_SATA_START';
+
+function* getUsersSaga(action){
+  try{    
+    yield put(getUsersStart())  // === dispatch(getUsersStart());
+    yield delay(2000)  // ===await sleep(2000);
+    const res = yield call(fetch,"https://api.github.com/users"); // const res= await fetch("https://api.github.com/users");
+    if(!res.ok){
+      throw new Error('서버에러');
+    }      
+    const data = yield call([res,'json']);// dispatch(getUsersSuccess(await res.json()));
+    yield put(getUsersSuccess(data));
+    yield put(push('/'));
+  }catch(error){
+    yield put(getUsersFail(error)) //dispatch(getUsersFail(e));
+  }
+}
+
+export function getUserSagaStart(){
+  return{
+    type: GET_USERS_SATA_START,
+  }
+}
+
+export function* usersSata(){
+  yield takeEvery(GET_USERS_SATA_START,getUsersSaga);
 }
